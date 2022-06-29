@@ -6,10 +6,10 @@ import re
 pNo = 1
 while pNo <= 10:
     cf = 0
-    page = requests.get("https://www.comdotgame.com/adult/" + str(pNo))
+    page = requests.get("URL/PAGENAME" + str(pNo))
     webpage = html.fromstring(page.content)
     ntiles = webpage.xpath('//a/@href')
-    start_string = 'https://www.comdotgame.com/play/'
+    start_string = 'URL/play/'
     tiles = [x for x in ntiles if x.startswith(start_string)]
 
     if tiles == []:
@@ -33,13 +33,13 @@ while pNo <= 10:
                     title = soup.find('title')
                     gamePage = str(soup)
 
-                    gptr = gamePage.find("var filename = \"https://comdotcdn.com/games/files/")
+                    gptr = gamePage.find("var filename = \"URL/games/files/")
 
                     glink_raw = gamePage[gptr+14:gptr+116]
 
                     glink = str(re.findall('"([^"]*)"', glink_raw)) #final game link
 
-                    final = requests.get("https://echo.comdotgame.com/4x90xhl3k0" + str(glink[23:-2]), stream=True) #requests the final file
+                    final = requests.get("URL/4x90xhl3k0" + str(glink[23:-2]), stream=True) #requests the final file
 
                     if len(glink) > 35:
 
@@ -54,7 +54,7 @@ while pNo <= 10:
                         print("Done! ", "Page: ", pNo, "/184 ", "Game: ", tNo, "/25 ", new_name)
 
                     else:
-                        print("Empty Link!!!!!!!!!!!!!!!!!\n")
+                        print("Empty Link!\n")
 
                     tNo += 1
         except:
